@@ -1,11 +1,10 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { palette } from '@/theme/tokens';
 
 export default function RootLayout() {
   return <>
-    <StatusBar style="dark" backgroundColor={palette.canvas} />
-    <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: palette.canvas } }}>
+    <StatusBar style="dark" />
+    <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#FFF9F6' } }}>
       <Stack.Screen name="index" />
       <Stack.Screen name="onboarding" />
       <Stack.Screen name="(tabs)" />
