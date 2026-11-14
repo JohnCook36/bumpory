@@ -19,7 +19,12 @@ jobs:
       - run: npm install -g npm@11
       - run: npm install --no-audit --no-fund
       - name: Install SDK platform
-        run: sdkmanager "platforms;android-37" "build-tools;37.0.0"
+        run: |
+          SDK_ROOT="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          SDKMANAGER="$(find "$SDK_ROOT/cmdline-tools" -type f -name sdkmanager | head -n 1)"
+          test -n "$SDKMANAGER"
+          "$SDKMANAGER" --licenses < <(yes) >/dev/null
+          "$SDKMANAGER" "platforms;android-37" "build-tools;37.0.0"
       - name: Generate native Android project
         run: CI=1 npx expo prebuild --platform android --no-install
       - name: Assemble debug APK
