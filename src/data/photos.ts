@@ -2,14 +2,16 @@ import { Directory, File, Paths } from 'expo-file-system';
 
 const directory = new Directory(Paths.document, 'journal-images');
 
-export function savePickedPhoto(uri: string): string {
+export async function savePickedPhoto(uri: string): Promise<string> {
   directory.create({ idempotent: true, intermediates: true });
   const source = new File(uri);
-  const suffix = uri.split('.').pop()?.toLowerCase();
-  const extension = suffix === 'png' ? 'png' : 'jpg';
+  const suffix = uri.split('?')[0].split('.').pop()?.toLowerCase();
+  const extension = ['png', 'jpeg', 'jpg', 'heic', 'webp'].includes(suffix || '') ? suffix : 'jpg';
   const filename = `photo-${Date.now()}-${Math.random().toString(36).slice(2)}.${extension}`;
   const destination = new File(directory, filename);
-  source.copy(destination);
+  // Await the copy: the journal must never reference a temporary picker URI
+  // before its original photo has reached persistent application storage.
+  await source.copy(destination);
   return destination.uri;
 }
 
