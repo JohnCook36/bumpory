@@ -43,7 +43,7 @@ export default function EntryScreen() {
     setBusy(true);
     let newUri: string | null = null;
     try {
-      newUri = picked ? savePickedPhoto(picked) : photo;
+      newUri = picked ? await savePickedPhoto(picked) : photo;
       await saveEntry({
         id: id || `j-${Date.now()}-${Math.random().toString(36).slice(2)}`,
         week, note: note.trim(), photo_uri: newUri, created_at: createdAt
