@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "Bumpory",
+    "slug": "bumpory",
+    "scheme": "bumpory",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#FFF9F6",
+    "newArchEnabled": true,
+    "ios": {
+      "bundleIdentifier": "com.bumpory.app",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Bumpory использует выбранные вами фотографии только для личного дневника."
+      }
+    },
+    "android": {
+      "package": "com.bumpory.app",
+      "edgeToEdgeEnabled": true
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Разрешите выбрать фотографию для вашего личного дневника.",
+          "cameraPermission": false,
+          "microphonePermission": false
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
